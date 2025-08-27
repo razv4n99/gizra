@@ -1,0 +1,147 @@
+#ddev-generated
+# If you remove the ddev-generated line above you
+# are responsible for maintaining this file. DDEV will not then
+# update it, for example if you add `additional_hostnames`, etc.
+
+http:
+  routers:
+    drupal-starter-web-80-http:
+      entrypoints:
+        - http-8880
+      rule: HostRegexp(`^drupal-starter\.ddev\.site$`)
+      
+      service: "drupal-starter-web-80"
+      ruleSyntax: v3
+      tls: false
+      # middlewares:
+      #   - "drupal-starter-redirectHttps"
+    drupal-starter-web-8025-http:
+      entrypoints:
+        - http-8025
+      rule: HostRegexp(`^drupal-starter\.ddev\.site$`)
+      
+      service: "drupal-starter-web-8025"
+      ruleSyntax: v3
+      tls: false
+      # middlewares:
+      #   - "drupal-starter-redirectHttps"
+    drupal-starter-xhgui-80-http:
+      entrypoints:
+        - http-8143
+      rule: HostRegexp(`^drupal-starter\.ddev\.site$`)
+      
+      service: "drupal-starter-xhgui-80"
+      ruleSyntax: v3
+      tls: false
+      # middlewares:
+      #   - "drupal-starter-redirectHttps"
+    drupal-starter-selenium-chrome-7900-http:
+      entrypoints:
+        - http-7910
+      rule: HostRegexp(`^drupal-starter\.ddev\.site$`)
+      
+      service: "drupal-starter-selenium-chrome-7900"
+      ruleSyntax: v3
+      tls: false
+      # middlewares:
+      #   - "drupal-starter-redirectHttps"
+    drupal-starter-solr-8983-http:
+      entrypoints:
+        - http-8983
+      rule: HostRegexp(`^drupal-starter\.ddev\.site$`)
+      
+      service: "drupal-starter-solr-8983"
+      ruleSyntax: v3
+      tls: false
+      # middlewares:
+      #   - "drupal-starter-redirectHttps"
+    
+    
+    
+    drupal-starter-web-80-https:
+      entrypoints:
+        - http-4443
+      rule: HostRegexp(`^drupal-starter\.ddev\.site$`)
+      
+      service: "drupal-starter-web-80"
+      ruleSyntax: v3
+      
+      tls: true
+      
+    drupal-starter-web-8025-https:
+      entrypoints:
+        - http-8026
+      rule: HostRegexp(`^drupal-starter\.ddev\.site$`)
+      
+      service: "drupal-starter-web-8025"
+      ruleSyntax: v3
+      
+      tls: true
+      
+    
+    drupal-starter-xhgui-80-https:
+      entrypoints:
+        - http-8142
+      rule: HostRegexp(`^drupal-starter\.ddev\.site$`)
+      
+      service: "drupal-starter-xhgui-80"
+      ruleSyntax: v3
+      
+      tls: true
+      
+    
+    drupal-starter-selenium-chrome-7900-https:
+      entrypoints:
+        - http-7900
+      rule: HostRegexp(`^drupal-starter\.ddev\.site$`)
+      
+      service: "drupal-starter-selenium-chrome-7900"
+      ruleSyntax: v3
+      
+      tls: true
+      
+    
+    
+
+  middlewares:
+    drupal-starter-redirectHttps:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+  services:
+    drupal-starter-web-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-drupal-starter-web:80
+        
+    drupal-starter-web-8025:
+      loadbalancer:
+        servers:
+          - url: http://ddev-drupal-starter-web:8025
+        
+    
+    
+    drupal-starter-xhgui-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-drupal-starter-xhgui:80
+        
+    
+    drupal-starter-selenium-chrome-7900:
+      loadbalancer:
+        servers:
+          - url: http://ddev-drupal-starter-selenium-chrome:7900
+        
+    
+    drupal-starter-solr-8983:
+      loadbalancer:
+        servers:
+          - url: http://ddev-drupal-starter-solr:8983
+        
+    
+
+tls:
+  certificates:
+    - certFile: /mnt/ddev-global-cache/traefik/certs/drupal-starter.crt
+      keyFile: /mnt/ddev-global-cache/traefik/certs/drupal-starter.key
