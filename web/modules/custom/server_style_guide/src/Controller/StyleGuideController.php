@@ -213,6 +213,12 @@ class StyleGuideController extends ControllerBase {
     $element = $this->getWebformElement();
     $build[] = $this->wrapElementNoContainer($element, 'Element: Webform');
 
+    $element = $this->getPersonCard();
+    $build[] = $this->wrapElementWideContainer($element, 'Person card');
+
+    $element = $this->getPersonCardGrid();
+    $build[] = $this->wrapElementWideContainer($element, 'Person card grid');
+
     return $build;
   }
 
@@ -934,6 +940,154 @@ class StyleGuideController extends ControllerBase {
       $this->getRandomTitle(),
       $this->buildProcessedText('Decorate one package of cauliflower in six teaspoons of plain vinegar. Try flavoring the crême fraîche gingers with clammy rum and fish sauce, simmered.'),
     );
+  }
+
+  /**
+   * Get Person card element.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function getPersonCard(): array {
+    $people = [
+      [
+        'name' => 'Jon Doe',
+        'title' => 'General Director',
+        'role' => 'Admin',
+        'email' => 'jon.doe@example.com',
+        'phone' => '+1234567890',
+      ],
+      [
+        'name' => 'Smith Allen',
+        'title' => 'Assistant Manager',
+        'role' => 'Manager',
+        'email' => 'jon.doe@example.com',
+        'phone' => '+1234567890',
+      ],
+      [
+        'name' => 'David Bowie',
+        'title' => 'Lead Designer',
+        'role' => 'Designer',
+        'email' => 'jon.doe@example.com',
+        'phone' => '+1234567890',
+      ],
+      [
+        'name' => 'Rick Morty',
+        'title' => 'Developer',
+        'role' => 'Developer',
+        'email' => 'jon.doe@example.com',
+        'phone' => '+1234567890',
+      ],
+    ];
+    $person = $people[array_rand($people)];
+
+    return [
+      '#theme' => 'person_card',
+      '#image' => $this->getPlaceholderPersonImage(128),
+      '#name' => $person['name'],
+      '#title' => $person['title'],
+      '#role' => $person['role'],
+      '#email' => $person['email'],
+      '#phone' => $person['phone'],
+    ];
+  }
+
+  /**
+   * Get a grid of Person cards.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function getPersonCardGrid(): array {
+    $people = [
+      [
+        'name' => 'Jon Doe',
+        'title' => 'General Director',
+        'role' => 'Admin',
+        'email' => 'jon.doe@example.com',
+        'phone' => '+1234567890',
+      ],
+      [
+        'name' => 'Smith Allen',
+        'title' => 'General Director',
+        'role' => 'Assistant Manager',
+        'email' => 'jon.doe@example.com',
+        'phone' => '+1234567890',
+      ],
+      [
+        'name' => 'David Bowie',
+        'title' => 'Lead Designer',
+        'role' => 'Admin',
+        'email' => 'jon.doe@example.com',
+        'phone' => '+1234567890',
+      ],
+      [
+        'name' => 'Rick Morty',
+        'title' => 'Developer',
+        'role' => 'Admin',
+        'email' => 'jon.doe@example.com',
+        'phone' => '+1234567890',
+      ],
+      [
+        'name' => 'Jane Smith',
+        'title' => 'General Director',
+        'role' => 'Admin',
+        'email' => 'jon.doe@example.com',
+        'phone' => '+1234567890',
+      ],
+      [
+        'name' => 'Chris Pine',
+        'title' => 'Scrum Master',
+        'role' => 'Editor',
+        'email' => 'jon.doe@example.com',
+        'phone' => '+1234567890',
+      ],
+      [
+        'name' => 'Alex Turner',
+        'title' => 'QA Engineer',
+        'role' => 'Admin',
+        'email' => 'jon.doe@example.com',
+        'phone' => '+1234567890',
+      ],
+      [
+        'name' => 'Sam Carter',
+        'title' => 'Product Owner',
+        'role' => 'Editor',
+        'email' => 'jon.doe@example.com',
+        'phone' => '+1234567890',
+      ],
+      [
+        'name' => 'Pat Lee',
+        'title' => 'Frontend Developer',
+        'role' => 'Admin',
+        'email' => 'jon.doe@example.com',
+        'phone' => '+1234567890',
+      ],
+      [
+        'name' => 'Morgan Yu',
+        'title' => 'Backend Dev',
+        'role' => 'Admin',
+        'email' => 'jon.doe@example.com',
+        'phone' => '+1234567890',
+      ],
+    ];
+
+    $items = [];
+    foreach ($people as $person) {
+      $items[] = [
+        '#theme' => 'person_card',
+        '#image' => $this->getPlaceholderPersonImage(128),
+        '#name' => $person['name'],
+        '#title' => $person['title'],
+        '#role' => $person['role'],
+        '#email' => $person['email'],
+        '#phone' => $person['phone'],
+      ];
+    }
+    return [
+      '#theme' => 'person_card_grid',
+      '#items' => $items,
+    ];
   }
 
 }
