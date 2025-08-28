@@ -511,6 +511,25 @@ function server_theme_theme() {
     'variables' => [],
   ];
 
+  $info['person_card'] = [
+    'variables' => [
+      'image' => NULL,
+      'name' => NULL,
+      'title' => NULL,
+      'role' => NULL,
+      'email' => NULL,
+      'phone' => NULL,
+    ],
+    'template' => 'server-theme-person-card',
+  ];
+
+  $info['person_card_grid'] = [
+    'variables' => [
+      'items' => [],
+    ],
+    'template' => 'server-theme-cards',
+  ];
+
   return $info;
 }
 
@@ -666,3 +685,4 @@ function server_theme_preprocess_image_style(array &$variables) {
     $variables['image']['#attributes']['loading'] = 'eager';
   }
 }
+
