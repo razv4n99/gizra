@@ -1,0 +1,18 @@
+uuid: 940fa25f-5809-4d02-aca3-960205d005d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.group
+id: node-group-non-member
+label: Non-member
+weight: 0
+group_id: null
+group_type: node
+group_bundle: group
+is_admin: false
+permissions:
+  - 'approve and deny subscription'
+  - subscribe
+  - 'subscribe without approval'
+role_type: required
