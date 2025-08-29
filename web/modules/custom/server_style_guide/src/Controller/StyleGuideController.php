@@ -26,6 +26,8 @@ use Drupal\server_general\ThemeTrait\InfoCardThemeTrait;
 use Drupal\server_general\ThemeTrait\LinkThemeTrait;
 use Drupal\server_general\ThemeTrait\NewsTeasersThemeTrait;
 use Drupal\server_general\ThemeTrait\PeopleTeasersThemeTrait;
+use Drupal\server_general\ThemeTrait\PersonCardThemeTrait;
+use Drupal\server_general\ThemeTrait\PersonCardGridThemeTrait;
 use Drupal\server_general\ThemeTrait\QuickLinksThemeTrait;
 use Drupal\server_general\ThemeTrait\QuoteThemeTrait;
 use Drupal\server_general\ThemeTrait\SearchThemeTrait;
@@ -66,6 +68,8 @@ class StyleGuideController extends ControllerBase {
   use TagThemeTrait;
   use TitleAndLabelsThemeTrait;
   use WebformTrait;
+  use PersonCardThemeTrait;
+  use PersonCardGridThemeTrait;
 
 
   /**
@@ -214,10 +218,10 @@ class StyleGuideController extends ControllerBase {
     $build[] = $this->wrapElementNoContainer($element, 'Element: Webform');
 
     $element = $this->getPersonCard();
-    $build[] = $this->wrapElementWideContainer($element, 'Person card');
+    $build[] = $this->wrapElementWideContainer($element, 'Element: Person card');
 
     $element = $this->getPersonCardGrid();
-    $build[] = $this->wrapElementWideContainer($element, 'Person card grid');
+    $build[] = $this->wrapElementWideContainer($element, 'Element: 10 Person cards grid');
 
     return $build;
   }
@@ -943,151 +947,50 @@ class StyleGuideController extends ControllerBase {
   }
 
   /**
-   * Get Person card element.
-   *
-   * @return array
-   *   Render array.
+   * Show a single Person card.
    */
   protected function getPersonCard(): array {
-    $people = [
-      [
-        'name' => 'Jon Doe',
-        'title' => 'General Director',
-        'role' => 'Admin',
-        'email' => 'jon.doe@example.com',
-        'phone' => '+1234567890',
-      ],
-      [
-        'name' => 'Smith Allen',
-        'title' => 'Assistant Manager',
-        'role' => 'Manager',
-        'email' => 'jon.doe@example.com',
-        'phone' => '+1234567890',
-      ],
-      [
-        'name' => 'David Bowie',
-        'title' => 'Lead Designer',
-        'role' => 'Designer',
-        'email' => 'jon.doe@example.com',
-        'phone' => '+1234567890',
-      ],
-      [
-        'name' => 'Rick Morty',
-        'title' => 'Developer',
-        'role' => 'Developer',
-        'email' => 'jon.doe@example.com',
-        'phone' => '+1234567890',
-      ],
-    ];
-    $person = $people[array_rand($people)];
-
-    return [
-      '#theme' => 'person_card',
-      '#image' => $this->getPlaceholderPersonImage(128),
-      '#name' => $person['name'],
-      '#title' => $person['title'],
-      '#role' => $person['role'],
-      '#email' => $person['email'],
-      '#phone' => $person['phone'],
-    ];
+    return $this->buildElementPersonCard(
+      $this->getPlaceholderPersonImage(128),
+      'Image alt Jane Cooper',
+      'Jane Cooper',
+      'Paradigm Representative',
+      'Admin',
+      'jane.cooper@example.com',  // Email
+      '+1 555-123-4567'            // Call
+    );
   }
 
   /**
-   * Get a grid of Person cards.
-   *
-   * @return array
-   *   Render array.
+   * Show a grid of 10 Person cards.
    */
   protected function getPersonCardGrid(): array {
     $people = [
-      [
-        'name' => 'Jon Doe',
-        'title' => 'General Director',
-        'role' => 'Admin',
-        'email' => 'jon.doe@example.com',
-        'phone' => '+1234567890',
-      ],
-      [
-        'name' => 'Smith Allen',
-        'title' => 'General Director',
-        'role' => 'Assistant Manager',
-        'email' => 'jon.doe@example.com',
-        'phone' => '+1234567890',
-      ],
-      [
-        'name' => 'David Bowie',
-        'title' => 'Lead Designer',
-        'role' => 'Admin',
-        'email' => 'jon.doe@example.com',
-        'phone' => '+1234567890',
-      ],
-      [
-        'name' => 'Rick Morty',
-        'title' => 'Developer',
-        'role' => 'Admin',
-        'email' => 'jon.doe@example.com',
-        'phone' => '+1234567890',
-      ],
-      [
-        'name' => 'Jane Smith',
-        'title' => 'General Director',
-        'role' => 'Admin',
-        'email' => 'jon.doe@example.com',
-        'phone' => '+1234567890',
-      ],
-      [
-        'name' => 'Chris Pine',
-        'title' => 'Scrum Master',
-        'role' => 'Editor',
-        'email' => 'jon.doe@example.com',
-        'phone' => '+1234567890',
-      ],
-      [
-        'name' => 'Alex Turner',
-        'title' => 'QA Engineer',
-        'role' => 'Admin',
-        'email' => 'jon.doe@example.com',
-        'phone' => '+1234567890',
-      ],
-      [
-        'name' => 'Sam Carter',
-        'title' => 'Product Owner',
-        'role' => 'Editor',
-        'email' => 'jon.doe@example.com',
-        'phone' => '+1234567890',
-      ],
-      [
-        'name' => 'Pat Lee',
-        'title' => 'Frontend Developer',
-        'role' => 'Admin',
-        'email' => 'jon.doe@example.com',
-        'phone' => '+1234567890',
-      ],
-      [
-        'name' => 'Morgan Yu',
-        'title' => 'Backend Dev',
-        'role' => 'Admin',
-        'email' => 'jon.doe@example.com',
-        'phone' => '+1234567890',
-      ],
+      ['Jane Cooper', 'Paradigm Representative', 'Admin', 'jane.cooper@example.com', '+1 555-123-4567'],
+      ['Jon Doe', 'Engineer', 'Moderator', 'jon.doe@example.com', '+1 555-234-5678'],
+      ['Smith Allen', 'Designer', 'Member', 'smith.allen@example.com', '+1 555-345-6789'],
+      ['David Bowie', 'Musician', 'Artist', 'david.bowie@example.com', '+1 555-456-7890'],
+      ['Rick Morty', 'Scientist', 'Admin', 'rick.morty@example.com', '+1 555-567-8901'],
+      ['Marie Curie', 'Physicist', 'Member', 'marie.curie@example.com', '+1 555-678-9012'],
+      ['Alan Turing', 'Mathematician', 'Admin', 'alan.turing@example.com', '+1 555-789-0123'],
+      ['Ada Lovelace', 'Programmer', 'Moderator', 'ada.lovelace@example.com', '+1 555-890-1234'],
+      ['Nikola Tesla', 'Inventor', 'Member', 'nikola.tesla@example.com', '+1 555-901-2345'],
+      ['Grace Hopper', 'Computer Scientist', 'Admin', 'grace.hopper@example.com', '+1 555-012-3456'],
     ];
 
     $items = [];
-    foreach ($people as $person) {
-      $items[] = [
-        '#theme' => 'person_card',
-        '#image' => $this->getPlaceholderPersonImage(128),
-        '#name' => $person['name'],
-        '#title' => $person['title'],
-        '#role' => $person['role'],
-        '#email' => $person['email'],
-        '#phone' => $person['phone'],
-      ];
+    foreach ($people as [$name, $detail, $badge, $email, $call]) {
+      $items[] = $this->buildElementPersonCard(
+        $this->getPlaceholderPersonImage(128),
+        'Image alt ' . $name,
+        $name,
+        $detail,
+        $badge,
+        $email,
+        $call
+      );
     }
-    return [
-      '#theme' => 'person_card_grid',
-      '#items' => $items,
-    ];
-  }
 
+    return $this->buildElementPersonCardGrid($items);
+  }
 }
